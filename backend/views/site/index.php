@@ -5,7 +5,6 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 use common\lib\Utils;
 use common\widgets\Alert;
-use \kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
