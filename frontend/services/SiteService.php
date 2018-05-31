@@ -73,7 +73,7 @@ class SiteService
             });
         }
 
-        $query = Operations::find()->where(['or', 'id_receiver='.$account->id, 'id_sender='.$account->id])->orderBy('id ASC');
+        $query = Operations::find()->where(['or', 'id_receiver='.$account->id, 'id_sender='.$account->id])->orderBy('id ASC')->with('senderUser', 'receiverUser', 'creatorUser');
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => false

@@ -61,13 +61,13 @@ $balance = 0;
             [
                 'attribute' => 'From',
                 'value' => function($operation) {
-                    return $operation->sender ? $operation->sender->user->email : $operation->creator->user->email;
+                    return $operation->sender ? $operation->senderUser->email : $operation->creatorUser->email;
                 }
             ],
             [
                 'attribute' => 'To',
                 'value' => function($operation) {
-                    return $operation->receiver->user->email;
+                    return $operation->receiverUser->email;
                 }
             ],
         ],
