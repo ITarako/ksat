@@ -19,42 +19,14 @@ $alert->run();
     <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="row">
-        <div class="col-md-4">
-            <?= Html::beginForm(['id' => 'form-search']); ?>
-
-                <div class="form-group">
-                    <?= Html::input('email', 'email', '', ['class' => 'form-control', 'placeholder'=>'Enter email']) ?>
-                </div>
-                <div class="form-group">
-                    <?= Html::input('number', 'value', '', ['class' => 'form-control', 'placeholder'=>'Enter value']) ?>
-                </div>
-                <div class="form-group">
-                <?= DatePicker::widget([
-                    'name' => 'from_date',
-                    'value' => '',
-                    'type' => DatePicker::TYPE_RANGE,
-                    'name2' => 'to_date',
-                    'value2' => '',
-                    'pluginOptions' => [
-                        'autoclose'=>true,
-                        'format' => 'yyyy-mm-dd'
-                    ]
-                ])?>
-                </div>
-                <div class="form-group">
-                    <?= Html::submitButton('Search', ['class' => 'btn btn-success', 'name' => 'search-button']) ?>
-                </div>
-
-            <?php Html::endForm(); ?>
-        </div>
-
-        <p class="col-md-3 col-md-offset-5">
-        <?= Html::a('Create User', ['/user/create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Operations list', ['operations'], ['class' => 'btn btn-success']) ?>
-    </p>
+        <p class="col-md-6">
+            <?= Html::a('Create User', ['/user/create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Operations list', ['operations'], ['class' => 'btn btn-success']) ?>
+        </p>
     </div>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'summary'=> "",
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 

@@ -60,11 +60,7 @@ class SiteController extends Controller
         parent::init();
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         if(Yii::$app->user->isGuest)
@@ -87,11 +83,7 @@ class SiteController extends Controller
         ]);
     }
 
-    /**
-     * Logs in a user.
-     *
-     * @return mixed
-     */
+
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -110,11 +102,6 @@ class SiteController extends Controller
         }
     }
 
-    /**
-     * Logs out the current user.
-     *
-     * @return mixed
-     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
@@ -122,11 +109,6 @@ class SiteController extends Controller
         return $this->goHome();
     }
 
-    /**
-     * Signs user up.
-     *
-     * @return mixed
-     */
     public function actionSignup()
     {
         $model = new SignupForm();

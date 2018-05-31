@@ -3,14 +3,8 @@ namespace common\models;
 
 use Yii;
 use yii\base\Model;
-/* use common\models\User;
-use common\models\Account;
-use common\models\Operations; */
 use common\lib\Utils;
 
-/**
- * Send form
- */
 class SendForm extends Model
 {
     public $email;

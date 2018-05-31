@@ -15,9 +15,7 @@ use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 use backend\services\UserService;
 
-/**
- * UserController implements the CRUD actions for User model.
- */
+
 class UserController extends Controller
 {
     public $service;

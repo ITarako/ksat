@@ -11,7 +11,6 @@ use common\models\User;
 use yii\data\ActiveDataProvider;
 use backend\models\ReplenishForm;
 use common\models\SendForm;
-#use yii\data\SqlDataProvider;
 
 /**
  * Site controller
@@ -26,13 +25,10 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
+                'only' => ['index', 'operations', 'replenish', 'send'],
                 'rules' => [
                     [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index', 'operations', 'replenish', 'send'],
+                        'actions' => ['index', 'operations', 'replenish', 'send'],
                         'allow' => true,
                         'roles' => ['admin'],
                     ],
@@ -59,43 +55,8 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
-        $count = Yii::$app->db->createCommand('SELECT COUNT(*) FROM user')->queryScalar();
-
-        /* $and = '';
-        $postData = Yii::$app->request->post();
-        if($postData) {
-
-            if($postData['email'])
-                $and .=" and email='{$postData['email']}'";
-
-            if($postData['from_date'])
-                $and .=" and DATE(o.created_at) >='{$postData['from_date']}' and DATE(op.created_at) >='{$postData['from_date']}'";
-
-            if($postData['to_date'])
-                $and .=" and DATE(o.created_at) <='{$postData['to_date']}' and DATE(op.created_at) <='{$postData['to_date']}'";
-
-        }
-        $dataProvider = new SqlDataProvider([
-            'sql' => "select u.email email, sum(o.value) sended, sum(op.value) received
-            from public.user u
-            inner join public.account a on a.id_user=u.id
-            left join public.operations o on o.id_sender = a.id
-            left join public.operations op on op.id_receiver = a.id
-            where u.status=10
-            $and
-            group by u.email",
-            'totalCount' => $count,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-        ]); */
         $query = User::find()->where(['status'=>10]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -103,16 +64,10 @@ class SiteController extends Controller
         ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
-    /**
-     * Login action.
-     *
-     * @return string
-     */
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -131,11 +86,6 @@ class SiteController extends Controller
         }
     }
 
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
     public function actionLogout()
     {
         Yii::$app->user->logout();

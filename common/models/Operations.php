@@ -10,14 +10,13 @@ use Yii;
  * @property int $id
  * @property int $value
  * @property string $created_at
- * @property string $updated_at
  * @property int $id_sender
  * @property int $id_receiver
  * @property int $id_creator
  *
- * @property User $sender
- * @property User $receiver
- * @property User $creator
+ * @property Account $sender
+ * @property Account $receiver
+ * @property Account $creator
  */
 class Operations extends \yii\db\ActiveRecord
 {
@@ -54,7 +53,6 @@ class Operations extends \yii\db\ActiveRecord
             'id' => 'ID',
             'value' => 'Value',
             'created_at' => 'Datetime',
-            #'updated_at' => 'Updated At',
             'id_sender' => 'Id Sender',
             'id_receiver' => 'Id Receiver',
             'id_creator' => 'Id Creator',

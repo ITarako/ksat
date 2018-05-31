@@ -11,9 +11,7 @@ use yii\web\IdentityInterface;
  * User model
  *
  * @property integer $id
- * @property string $username
  * @property string $password_hash
- * @property string $password_reset_token
  * @property string $email
  * @property string $auth_key
  * @property integer $status
@@ -76,55 +74,10 @@ class User extends ActiveRecord implements IdentityInterface
         throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
     }
 
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    /* public static function findByUsername($username)
-    {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    } */
     public static function findByEmail($email)
     {
         return static::findOne(['email' => $email, 'status' => self::STATUS_ACTIVE]);
     }
-
-    /**
-     * Finds user by password reset token
-     *
-     * @param string $token password reset token
-     * @return static|null
-     */
-    /* public static function findByPasswordResetToken($token)
-    {
-        if (!static::isPasswordResetTokenValid($token)) {
-            return null;
-        }
-
-        return static::findOne([
-            'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
-        ]);
-    } */
-
-    /**
-     * Finds out if password reset token is valid
-     *
-     * @param string $token password reset token
-     * @return bool
-     */
-    /* public static function isPasswordResetTokenValid($token)
-    {
-        if (empty($token)) {
-            return false;
-        }
-
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
-        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
-        return $timestamp + $expire >= time();
-    } */
 
     /**
      * {@inheritdoc}
@@ -180,22 +133,6 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * Generates new password reset token
-     */
-    /* public function generatePasswordResetToken()
-    {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
-    } */
-
-    /**
-     * Removes password reset token
-     */
-    /* public function removePasswordResetToken()
-    {
-        $this->password_reset_token = null;
-    } */
-
-    /**
      * @return \yii\db\ActiveQuery
      */
     public function getAccount()
@@ -203,18 +140,4 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasOne(Account::className(), ['id_user' => 'id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-   /*  public function getSendedOperations()
-    {
-        return $this->hasMany(Operations::className(), ['id_sender' => 'id']);
-    } */
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    /* public function getReceivedOperations()
-    {
-        return $this->hasMany(Operations::className(), ['id_receiver' => 'id']);
-    } */
 }
