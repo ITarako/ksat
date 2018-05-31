@@ -83,6 +83,31 @@ class Operations extends \yii\db\ActiveRecord
         return $this->hasOne(Account::className(), ['id' => 'id_creator']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSenderUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'id_user'])
+        ->viaTable('account', ['id'=>'id_sender']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReceiverUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'id_user'])
+        ->viaTable('account', ['id'=>'id_receiver']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreatorUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'id_user'])
+        ->viaTable('account', ['id'=>'id_creator']);
+    }
+
     public function afterFind()
     {
         parent::afterFind();

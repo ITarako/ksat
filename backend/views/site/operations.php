@@ -29,19 +29,21 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'Sender',
                 'value' => function($operation) {
-                    return $operation->sender ? $operation->sender->user->email : null;
+                    #return $operation->sender ? $operation->sender->user->email : null;
+                    return $operation->senderUser ? $operation->senderUser->email : null;
                 }
             ],
             [
                 'attribute' => 'Receiver',
                 'value' => function($operation) {
-                    return $operation->receiver->user->email;
+                    return $operation->receiverUser->email;
                 }
             ],
             [
                 'attribute' => 'Creator',
                 'value' => function($operation) {
-                    return $operation->creator ? $operation->creator->user->email : null;
+                    return $operation->creatorUser ? $operation->creatorUser->email : null;
+                    #return $operation->creator ? $operation->creator->user->email : null;
                 }
             ],
         ],

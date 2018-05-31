@@ -57,7 +57,7 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        $query = User::find()->where(['status'=>10]);
+        $query = User::find()->where(['status'=>10])->with('account');
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => false
@@ -95,7 +95,7 @@ class SiteController extends Controller
 
     public function actionOperations()
     {
-        $query = Operations::find();
+        $query = Operations::find()->with('senderUser', 'receiverUser', 'creatorUser');
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => false
