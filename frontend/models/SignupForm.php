@@ -7,12 +7,8 @@ use common\models\User;
 use common\models\Account;
 use yii\web\ServerErrorHttpException;
 
-/**
- * Signup form
- */
 class SignupForm extends Model
 {
-    public $username;
     public $email;
     public $password;
 
@@ -34,12 +30,6 @@ class SignupForm extends Model
         ];
     }
 
-    /**
-     * Signs user up.
-     *
-     * @return User|null the saved model or null if saving fails
-     */
-
     public function signup(){
         if (!$this->validate()) {
             return null;
@@ -59,12 +49,17 @@ class SignupForm extends Model
             if ($user->save()) {
                 $rbac->assign($notVerifiedRole, $user->id);
                 $transaction->commit();
+                return $this->sendEmail($user);
             }
         } catch (\Throwable $e) {
             $transaction->rollBack();
-            throw new ServerErrorHttpException();
         }
 
+        return null;
+    }
+
+    public function sendEmail(User $user)
+    {
         try {
             $sended =  Yii::$app
                 ->mailer
@@ -83,6 +78,7 @@ class SignupForm extends Model
         } catch (\Swift_TransportException $e){
             throw new ServerErrorHttpException();
         }
+
         return null;
     }
 }
