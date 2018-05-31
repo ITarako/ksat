@@ -41,20 +41,19 @@ class ReplenishForm extends Model
             return null;
         }
 
-        $receiver = User::find()->where(['email'=>$this->email])->one();
+        $receiver = User::findByEmail($this->email)->account;
 
         $operation = new Operations();
         $operation->value = Utils::penniesToInt($this->value);
-        $operation->id_creator = Yii::$app->user->id;
+        $operation->id_creator = Yii::$app->user->identity->account->id;
         $operation->id_receiver = $receiver->id;
 
-        $accReceiver = $receiver->account;
-        $accReceiver->value += $operation->value;
+        $receiver->value += $operation->value;
 
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
-            if ($operation->save() && $accReceiver->save()) {
+            if ($operation->save() && $receiver->save()) {
                 $transaction->commit();
                 return true;
             }
